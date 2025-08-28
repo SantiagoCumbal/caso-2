@@ -1,5 +1,5 @@
 import {Schema, model} from 'mongoose'
-import Matricula from './Matricula.js' 
+import Reserva from "../models/Reserva.js"
 
 const clienteSchema = new Schema({
     nombre: {
@@ -59,7 +59,7 @@ const clienteSchema = new Schema({
 clienteSchema.pre('findOneAndDelete', async function(next) {
     const cliente = await this.model.findOne(this.getFilter());
     if (cliente) {
-        await Matricula.deleteMany({ id_estudiante: cliente._id });
+        await Reserva.deleteMany({ id_cliente: cliente._id });
     }
     next();
 });
